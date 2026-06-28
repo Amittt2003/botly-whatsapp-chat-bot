@@ -13,3 +13,7 @@ node_modules/
 # OS junk
 Thumbs.db
 .DS_Store
+
+# Not part of the website / kept local only
+/ads/
+/shark-logo.png
