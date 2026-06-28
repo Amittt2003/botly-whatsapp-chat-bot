@@ -1,0 +1,15 @@
+# Cloudflare / wrangler
+.wrangler/
+
+# Playwright MCP browser snapshots
+.playwright-mcp/
+
+# Claude Code harness local state
+.claude/
+
+# Node
+node_modules/
+
+# OS junk
+Thumbs.db
+.DS_Store

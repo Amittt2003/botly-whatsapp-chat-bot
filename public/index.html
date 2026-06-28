@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Botly — בוט שירות לקוחות חכם לוואטסאפ | מנהל את הפניות, אתה עובד</title>
+<meta name="description" content="Botly מנהל את שירות הלקוחות שלך בוואטסאפ כמו נציג אנושי אמיתי — הלקוחות לא מרגישים שזה בוט. מענה 24/7, חיבור ליומן, ואנחנו מנהלים הכל. מבצע השקה: חודש ניסיון חינם ל-10 העסקים הראשונים.">
+<meta property="og:title" content="Botly — בוט שירות לקוחות חכם לוואטסאפ">
+<meta property="og:description" content="הבוט שמנהל את שירות הלקוחות שלך כמו נציג אנושי — ואתה מתפנה לעבודה. חודש ניסיון חינם ל-10 העסקים הראשונים.">
+<meta property="og:type" content="website">
+
+<!-- Fonts: Heebo (Hebrew primary) + Inter (latin fallback) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   Botly — Brand override of the landing skill default.
+   Skill default = dark navy + teal. Override = clean light + WhatsApp green.
+   ============================================================ */
+:root{
+  --green:      #25D366;   /* WhatsApp green - accent / CTA */
+  --green-dark: #1ebe5a;
+  --green-deep: #075E54;   /* WhatsApp deep teal - headings */
+  --green-mid:  #128C7E;
+  --green-glow: rgba(37, 211, 102, 0.16);
+  --green-soft: rgba(37, 211, 102, 0.08);
+  --amber:      #ff5a3c;   /* urgency */
+  --amber-soft: rgba(255, 90, 60, 0.10);
+  --ink:        #0b141a;   /* main text */
+  --bg:         #ffffff;
+  --bg-soft:    #f4f8f6;
+  --bg-soft-2:  #eef4f1;
+  --text-muted: #5a6b73;
+  --card-bg:    #ffffff;
+  --card-border:rgba(11, 20, 26, 0.08);
+  --shadow-sm:  0 2px 10px rgba(7, 94, 84, 0.06);
+  --shadow-md:  0 12px 34px rgba(7, 94, 84, 0.10);
+  --shadow-lg:  0 24px 60px rgba(7, 94, 84, 0.16);
+  --radius:     18px;
+  --maxw:       1180px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Heebo","Inter",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* ---------- Typography helpers ---------- */
+.eyebrow{
+  display:inline-block;font-size:13px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--green-mid);
+  background:var(--green-soft);padding:7px 14px;border-radius:999px;margin-bottom:18px;
+}
+h1,h2,h3{line-height:1.15;color:var(--green-deep);font-weight:800}
+.section-title{font-size:clamp(30px,4.4vw,52px);text-align:center;margin-bottom:14px}
+.section-sub{font-size:clamp(16px,1.8vw,19px);color:var(--text-muted);text-align:center;max-width:640px;margin:0 auto 56px}
+
+/* ---------- Buttons ---------- */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--green);color:#fff;font-weight:700;font-size:18px;
+  padding:16px 30px;border-radius:999px;border:none;cursor:pointer;
+  box-shadow:0 10px 24px rgba(37,211,102,.35);
+  transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;
+  font-family:inherit;
+}
+.btn-primary:hover{transform:translateY(-3px);filter:brightness(1.05);box-shadow:0 16px 34px rgba(37,211,102,.45)}
+.btn-primary svg{width:22px;height:22px;fill:#fff}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;
+  color:var(--green-deep);padding:14px 20px;border-radius:999px;
+  border:1.5px solid var(--card-border);transition:border-color .25s,background .25s;
+}
+.btn-ghost:hover{border-color:var(--green);background:var(--green-soft)}
+
+/* ---------- Top announcement bar ---------- */
+.topbar{display:block;text-decoration:none;background:linear-gradient(90deg,#e11d2a,#b91c1c);color:#fff;position:relative;z-index:101;transition:filter .2s}
+.topbar:hover{filter:brightness(1.05)}
+.topbar-inner{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:16px 20px;font-size:15px;font-weight:700;line-height:1.45;text-align:center}
+.topbar b{font-weight:900}
+.topbar-inner>span{white-space:nowrap}
+.topbar-inner>span+span::before{content:"— ";opacity:.9}
+@media (max-width:580px){.topbar-inner>span+span::before{content:none}}
+.topbar-link{text-decoration:underline;text-underline-offset:3px;font-weight:900;white-space:nowrap}
+@media (max-width:580px){.topbar-inner{font-size:13px;gap:5px;padding:24px 18px;line-height:1.7}}
+
+/* ---------- Header ---------- */
+.sticky-top{position:sticky;top:0;z-index:101}
+header{
+  position:relative;z-index:100;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;transition:box-shadow .3s,border-color .3s;
+}
+header.scrolled{box-shadow:var(--shadow-sm);border-color:var(--card-border)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:24px;color:var(--green-deep);letter-spacing:-.5px}
+.logo .logo-mark{
+  width:58px;height:58px;flex:0 0 auto;border-radius:10px;
+  background-image:url("logo.png");background-repeat:no-repeat;background-size:cover;background-position:center;
+}
+.logo .logo-mark svg{display:none}
+.logo-word{direction:ltr;display:inline-flex;letter-spacing:-.5px}
+.logo b{color:var(--green)}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-weight:600;color:var(--ink);font-size:15px;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav .btn-primary{font-size:15px;padding:11px 20px}
+.nav-toggle{display:none}
+
+/* ---------- Hero ---------- */
+.hero{
+  min-height:clamp(620px,92vh,860px);display:flex;align-items:center;
+  padding:60px 0 80px;overflow:hidden;
+  background:
+    radial-gradient(1100px 520px at 85% -10%, var(--green-soft), transparent 60%),
+    radial-gradient(800px 500px at 0% 110%, rgba(18,140,126,.07), transparent 55%),
+    var(--bg);
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(34px,5vw,62px);font-weight:900;letter-spacing:-1px;margin-bottom:20px}
+.hero h1 .hl{color:var(--green);position:relative;white-space:nowrap}
+.hero .subtitle{font-size:clamp(17px,2vw,21px);color:var(--text-muted);margin-bottom:32px;max-width:540px}
+.hero-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.hero-trust{display:flex;align-items:center;gap:18px;flex-wrap:wrap;color:var(--text-muted);font-size:14px;font-weight:500}
+.hero-trust .dot{display:inline-flex;align-items:center;gap:7px}
+.hero-trust svg{width:18px;height:18px;fill:var(--green)}
+
+/* hero social-proof line */
+.hero-proof{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--green-soft);border:1px solid rgba(37,211,102,.25);
+  border-radius:14px;padding:11px 18px;margin-bottom:24px}
+.hero-proof .hp-stars{color:#ffb400;font-size:17px;letter-spacing:1.5px;line-height:1}
+.hero-proof .hp-rate{font-weight:900;color:var(--green-deep);font-size:18px}
+.hero-proof .hp-txt{font-size:14.5px;color:#274a43;font-weight:600}
+.hero-proof .hp-txt b{color:var(--green-deep);font-weight:900}
+.hero-proof .hp-sep{width:1px;height:20px;background:rgba(37,211,102,.3)}
+.hero-proof .hp-bar{color:rgba(7,94,84,.35);font-weight:400;font-size:18px}
+@media (max-width:900px){.hero-proof{justify-content:center}}
+
+/* hero decorative shapes (parallax) */
+.hero-shapes-back,.hero-shapes-mid{position:absolute;inset:0;z-index:1;pointer-events:none}
+.hero-shapes-back .shape{position:absolute;border-radius:50%;filter:blur(8px);opacity:.5}
+.shape-a{width:260px;height:260px;background:var(--green-glow);top:-40px;left:-60px;animation:floatA 13s ease-in-out infinite}
+.shape-b{width:180px;height:180px;background:rgba(18,140,126,.12);bottom:40px;left:30%;animation:floatB 16s ease-in-out infinite}
+.hero-shapes-mid .shape{position:absolute;border-radius:30px;opacity:.5}
+.shape-c{width:90px;height:90px;background:var(--green-soft);top:20%;left:8%;animation:floatC 10s ease-in-out infinite}
+
+/* WhatsApp phone mockup */
+.phone{
+  width:330px;max-width:100%;margin:0 auto;background:#fff;border-radius:34px;
+  box-shadow:var(--shadow-lg);border:9px solid #0b141a;overflow:hidden;position:relative;
+}
+.phone-top{background:var(--green-deep);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:11px}
+.phone-top .ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-mid));display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff}
+.phone-top .info{line-height:1.2}
+.phone-top .info b{font-size:15px;font-weight:700}
+.phone-top .info span{font-size:12px;opacity:.85}
+.phone-body{background:#e6ddd4;padding:16px 14px;min-height:330px;display:flex;flex-direction:column;gap:10px;
+  background-image:radial-gradient(rgba(0,0,0,.03) 1px,transparent 1px);background-size:18px 18px}
+.bubble{max-width:78%;padding:9px 13px;border-radius:14px;font-size:14px;line-height:1.5;box-shadow:0 1px 1px rgba(0,0,0,.08);position:relative}
+.bubble.in{align-self:flex-start;background:#fff;border-top-right-radius:4px}
+.bubble.out{align-self:flex-end;background:#d9fdd3;border-top-left-radius:4px}
+.bubble .t{display:block;font-size:10px;color:#667;text-align:left;margin-top:3px}
+.bubble.bot-tag::before{content:"🤖 Botly";display:block;font-size:10px;font-weight:700;color:var(--green-mid);margin-bottom:3px}
+.typing{align-self:flex-end;background:#d9fdd3;padding:11px 15px;border-radius:14px;border-top-left-radius:4px}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:#7aa;margin:0 1px;animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+
+/* ---------- Shark presenter (brand mascot image) ---------- */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.phone{position:relative;z-index:3}
+.phone img{display:block;width:100%;border-radius:25px}
+
+/* ---------- Offer / urgency banner ---------- */
+.offer{padding:0 0 10px;margin-top:-30px;position:relative;z-index:3}
+.offer-card{
+  background:linear-gradient(120deg,var(--green-deep),var(--green-mid));
+  color:#fff;border-radius:24px;padding:34px 32px;box-shadow:var(--shadow-lg);
+  display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center;overflow:hidden;position:relative;
+}
+.offer-card::after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,var(--green-glow),transparent 70%);top:-120px;left:-80px}
+.offer-badge{display:inline-flex;align-items:center;gap:8px;background:var(--amber);color:#fff;
+  font-weight:800;font-size:13px;letter-spacing:.04em;padding:7px 14px;border-radius:999px;margin-bottom:14px;
+  box-shadow:0 6px 16px rgba(255,90,60,.4);animation:pulse 2.2s ease-in-out infinite}
+.offer h2{color:#fff;font-size:clamp(24px,3vw,34px);margin-bottom:10px;line-height:1.2}
+.offer h2 em{color:#d9fdd3;font-style:normal}
+.offer p{color:rgba(255,255,255,.88);font-size:16px;max-width:440px}
+.offer-right{position:relative;z-index:2}
+.spots{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:20px}
+.spots .lbl{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;justify-content:space-between}
+.spots .lbl b{color:#fff}
+.spots-bar{height:12px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
+.spots-bar i{display:block;height:100%;width:60%;border-radius:999px;background:linear-gradient(90deg,#ffd23f,var(--amber));box-shadow:0 0 12px rgba(255,90,60,.6)}
+.spots .count{margin-top:12px;font-size:14px;color:#fff;font-weight:700;text-align:center}
+.spots .count span{color:#ffd23f;font-size:18px}
+.offer .btn-primary{background:#fff;color:var(--green-deep);margin-top:16px;box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.offer .btn-primary svg{fill:var(--green-deep)}
+
+/* ---------- Stats band (social proof) ---------- */
+.stats-band{padding:44px 0;border-bottom:1px solid var(--card-border);background:#fff}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat{position:relative}
+.stat+.stat::before{content:"";position:absolute;right:-12px;top:50%;transform:translateY(-50%);height:46px;width:1px;background:var(--card-border)}
+.stat .n{font-size:clamp(30px,4vw,46px);font-weight:900;color:var(--green-deep);line-height:1;display:flex;align-items:center;justify-content:center;gap:7px}
+.stat .n .star{color:#ffb400;font-size:.82em}
+.stat .l{margin-top:9px;font-size:14px;color:var(--text-muted);font-weight:500;line-height:1.4}
+
+/* ---------- Generic section spacing ---------- */
+.pad{padding:96px 0}
+.pad-sm{padding:70px 0}
+.bg-soft{background:var(--bg-soft)}
+
+/* ---------- Problem / Solution ---------- */
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px}
+.ps-card{border-radius:var(--radius);padding:32px;border:1px solid var(--card-border)}
+.ps-card.bad{background:var(--amber-soft);border-color:rgba(255,90,60,.2)}
+.ps-card.good{background:var(--green-soft);border-color:rgba(37,211,102,.25)}
+.ps-card h3{font-size:21px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.ps-card.bad h3{color:var(--amber)}
+.ps-list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.ps-list li{display:flex;gap:11px;align-items:flex-start;font-size:16px;color:#334}
+.ps-list .ic{flex:0 0 24px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:2px}
+.ps-card.bad .ic{background:rgba(255,90,60,.18);color:var(--amber)}
+.ps-card.good .ic{background:var(--green);color:#fff}
+
+/* ---------- How it works ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;counter-reset:step}
+.step{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:34px 26px;text-align:center;position:relative;box-shadow:var(--shadow-sm)}
+.step .num{width:52px;height:52px;margin:0 auto 18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--green),var(--green-mid));color:#fff;
+  display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 8px 18px rgba(37,211,102,.4)}
+.step h3{font-size:20px;margin-bottom:10px}
+.step p{color:var(--text-muted);font-size:15px}
+.step-line{position:absolute;top:60px;left:-13px;width:26px;height:2px;background:var(--card-border)}
+
+/* ---------- Features ---------- */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card{
+  background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:30px 26px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+.feature-card:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:var(--shadow-md)}
+.feature-card .fic{width:52px;height:52px;border-radius:14px;background:var(--green-soft);
+  display:grid;place-items:center;margin-bottom:18px}
+.feature-card .fic svg{width:27px;height:27px;stroke:var(--green-mid);fill:none;stroke-width:2}
+.feature-card h3{font-size:20px;margin-bottom:9px}
+.feature-card p{color:var(--text-muted);font-size:15.5px}
+
+/* ---------- Testimonials ---------- */
+.tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tst-hint{display:none;align-items:center;justify-content:center;gap:7px;margin-top:16px;color:var(--text-muted);font-size:13.5px;font-weight:600}
+.tst-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:30px 26px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.stars{color:#ffb400;font-size:17px;letter-spacing:2px;margin-bottom:14px}
+.tst-card .quote{font-size:16px;color:#283;line-height:1.7;margin-bottom:22px;flex:1}
+.tst-author{display:flex;align-items:center;gap:13px}
+.tst-author .ava{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:17px}
+.tst-author b{display:block;font-size:15.5px;color:var(--ink)}
+.tst-author span{font-size:13.5px;color:var(--text-muted)}
+
+/* ---------- FAQ ---------- */
+.faq-wrap{max-width:780px;margin:0 auto}
+.faq-item{border:1px solid var(--card-border);border-radius:14px;margin-bottom:14px;background:#fff;overflow:hidden;transition:box-shadow .25s,border-color .25s}
+.faq-item.open{box-shadow:var(--shadow-sm);border-color:rgba(37,211,102,.4)}
+.faq-q{width:100%;text-align:right;background:none;border:none;cursor:pointer;font-family:inherit;
+  padding:20px 22px;font-size:17px;font-weight:700;color:var(--green-deep);
+  display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq-q .pm{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--green-soft);color:var(--green-mid);
+  display:grid;place-items:center;font-size:18px;font-weight:800;transition:transform .3s,background .3s}
+.faq-item.open .pm{transform:rotate(45deg);background:var(--green);color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 22px 20px;color:var(--text-muted);font-size:15.5px}
+
+/* ---------- Closing CTA ---------- */
+.closing-cta{padding:110px 24px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--green-deep),var(--green-mid));color:#fff}
+.closing-cta::before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);top:-200px;left:50%;transform:translateX(-50%)}
+.closing-cta .inner{position:relative;z-index:2;max-width:720px;margin:0 auto}
+.closing-cta h2{color:#fff;font-size:clamp(28px,4vw,48px);margin-bottom:16px}
+.closing-cta p{color:rgba(255,255,255,.9);font-size:18px;margin-bottom:14px}
+.closing-cta .mini-badge{display:inline-flex;gap:8px;align-items:center;background:var(--amber);color:#fff;
+  font-weight:800;font-size:14px;padding:8px 16px;border-radius:999px;margin-bottom:26px;box-shadow:0 8px 20px rgba(255,90,60,.4)}
+.closing-cta .btn-primary{background:#fff;color:var(--green-deep);font-size:19px;padding:18px 38px}
+.closing-cta .btn-primary svg{fill:var(--green-deep)}
+.closing-cta .reassure{margin-top:18px;font-size:14px;color:rgba(255,255,255,.8)}
+
+/* ---------- Footer ---------- */
+footer{background:#06231f;color:rgba(255,255,255,.7);padding:54px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px}
+footer .logo{color:#fff}footer .logo b{color:var(--green)}
+footer p{font-size:14.5px;margin-top:14px;max-width:320px}
+footer h4{color:#fff;font-size:15px;margin-bottom:14px}
+footer a{display:block;font-size:14.5px;margin-bottom:9px;transition:color .2s}
+footer a:hover{color:var(--green)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:13px;text-align:center;color:rgba(255,255,255,.5)}
+
+/* ---------- Floating WhatsApp button ---------- */
+.float-wa{position:fixed;bottom:22px;left:22px;z-index:95;display:flex;align-items:center;gap:10px;
+  background:var(--green);color:#fff;border-radius:999px;padding:13px 22px 13px 17px;
+  box-shadow:0 10px 26px rgba(37,211,102,.5);transition:opacity .3s ease,transform .3s ease,box-shadow .25s;
+  font-weight:800;font-size:16px}
+.float-wa:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 34px rgba(37,211,102,.6)}
+.float-wa svg{width:28px;height:28px;fill:#fff;flex:0 0 auto}
+.float-wa-label{white-space:nowrap}
+@media (max-width:580px){.float-wa{padding:12px 18px 12px 14px;font-size:15px}}
+
+/* ---------- Animations ---------- */
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes floatA{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(18px,26px) rotate(8deg)}}
+@keyframes floatB{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-22px,18px) rotate(-6deg)}}
+@keyframes floatC{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(14px,-20px) rotate(10deg)}}
+
+/* ---------- Responsive ---------- */
+/* ---------- Offer trust line + Who-is-it-for ---------- */
+.offer-trust{margin-top:16px;font-size:14.5px;font-weight:700;color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:11px 15px;display:inline-block}
+.who{padding:74px 0;background:var(--green-soft);text-align:center}
+.who .eyebrow{background:#fff}
+.who-text{font-size:clamp(17px,2vw,22px);color:#274a43;max-width:680px;margin:0 auto;font-weight:500}
+.who-text b{color:var(--green-deep);font-weight:800}
+
+/* ---------- Key advantages band ---------- */
+.adv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:10px}
+.adv-card{display:flex;gap:18px;align-items:flex-start;background:var(--card-bg);
+  border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 26px;
+  box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s,border-color .3s}
+.adv-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--green)}
+.adv-card .ai{flex:0 0 56px;width:56px;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,var(--green),var(--green-mid));
+  display:grid;place-items:center;font-size:26px;box-shadow:0 8px 18px rgba(37,211,102,.32)}
+.adv-card h3{font-size:20px;margin-bottom:7px}
+.adv-card p{color:var(--text-muted);font-size:15.5px;line-height:1.65}
+.adv-card p b{color:var(--green-deep)}
+@media (max-width:760px){.adv-grid{grid-template-columns:1fr}}
+
+@media (max-width:900px){
+  .hero{min-height:auto;padding:36px 0 56px}
+  .hero-grid{grid-template-columns:1fr;text-align:center;gap:34px}
+  .hero .subtitle{margin-left:auto;margin-right:auto}
+  .hero-cta,.hero-trust{justify-content:center}
+  .hero-visual{min-height:auto}
+  .offer{margin-top:-18px}
+  .offer-card{grid-template-columns:1fr;gap:22px}
+  .ps-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:20px}
+  .step-line{display:none}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .tst-grid{
+    display:flex;grid-template-columns:none;max-width:none;margin:0;
+    gap:14px;padding-bottom:16px;
+    overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .tst-grid::-webkit-scrollbar{display:none}
+  .tst-card{flex:0 0 87%;scroll-snap-align:start}
+  .tst-hint{display:flex}
+  .nav-links{display:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  /* sticky chat button: hidden on phone until scrolled past the hero CTA */
+  .float-wa{opacity:0;visibility:hidden;transform:translateY(18px);pointer-events:none}
+  .float-wa.show{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+}
+@media (max-width:580px){
+  .container{padding:0 16px}
+  .nav{height:62px}
+  .logo{font-size:20px}
+  .logo .logo-mark{width:46px;height:46px}
+  .hero{padding:22px 0 46px}
+  .hero h1{font-size:31px}
+  .hero .subtitle{font-size:16px}
+  .hero-cta{flex-direction:column;align-items:stretch;gap:12px}
+  .hero-cta .btn-primary,.hero-cta .btn-ghost{width:100%;justify-content:center}
+  .hero-trust{font-size:13px;gap:9px 14px}
+  .phone{width:290px}
+  .stats-row{grid-template-columns:1fr 1fr;gap:24px 12px}
+  .stat+.stat::before{display:none}
+  .features-grid{grid-template-columns:1fr}
+  .pad{padding:56px 0}
+  .pad-sm{padding:46px 0}
+  .section-sub{margin-bottom:38px}
+  .offer-card{padding:24px 20px}
+  .closing-cta{padding:80px 18px}
+  .foot-grid{grid-template-columns:1fr;gap:24px}
+  .nav .btn-primary{font-size:13px;padding:9px 15px;gap:6px;white-space:nowrap}
+  .nav .btn-primary svg{width:17px;height:17px}
+  .cta-pre{display:none}
+}
+@media (max-width:380px){
+  .hero h1{font-size:28px}
+  .section-title{font-size:26px}
+  .phone{width:100%}
+  .topbar-inner{flex-direction:column;gap:7px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ STICKY TOP (banner + header) ============ -->
+<div class="sticky-top">
+
+<!-- ============ TOP ANNOUNCEMENT BAR ============ -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span><b>חודש ניסיון חינם</b></span>
+    <span>רק ל־<b>10 העסקים הראשונים בלבד!</b></span>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header id="header">
+  <div class="container nav">
+    <a href="#" class="logo">
+      <span class="logo-word">Bot<b>ly</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#how">איך זה עובד</a>
+      <a href="#advantages">יתרונות</a>
+      <a href="#testimonials">לקוחות</a>
+      <a href="#faq">שאלות נפוצות</a>
+    </nav>
+    <a href="#" class="btn-primary wa-cta" data-msg="היי, אשמח לבדיקת התאמה של Botly לעסק שלי">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6 2 11c0 2.6 1.3 4.9 3.3 6.5L4 22l4.8-1.5c1 .3 2.1.5 3.2.5 5.5 0 10-4 10-9S17.5 2 12 2z"/></svg>
+      <span>דברו איתנו<span class="cta-pre"> בוואטסאפ</span></span>
+    </a>
+  </div>
+</header>
+
+</div><!-- /.sticky-top -->
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-shapes-back"><span class="shape shape-a"></span><span class="shape shape-b"></span></div>
+  <div class="hero-shapes-mid"><span class="shape shape-c"></span></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">בוט שירות לקוחות חכם (AI) לוואטסאפ</span>
+        <h1>כל הודעה שלא ענית עליה בזמן — <span class="hl">היא לקוח שהלך למתחרה</span></h1>
+        <p class="subtitle">לקוח ששולח הודעה ולא מקבל מענה תוך דקות — כבר כותב למתחרה שלך. Botly עונה לכל פנייה בוואטסאפ תוך שניות, מסביב לשעון, ובדיוק בשפה ובסגנון שלך — כך שאף אחד לא מדמיין שמדובר בבוט. הלקוחות מקבלים שירות שגורם להם להישאר, ואתה מתפנה סוף סוף לעבוד ולהגדיל את העסק.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-primary wa-cta" data-msg="היי, אשמח לבדיקת התאמה חינם של Botly לעסק שלי">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6 2 11c0 2.6 1.3 4.9 3.3 6.5L4 22l4.8-1.5c1 .3 2.1.5 3.2.5 5.5 0 10-4 10-9S17.5 2 12 2z"/></svg>
+            דברו איתנו בוואטסאפ
+          </a>
+        </div>
+        <div class="hero-proof">
+          <span class="hp-stars">★★★★★</span>
+          <span class="hp-rate">4.8</span>
+          <span class="hp-bar">|</span>
+          <span class="hp-txt"><b>+152 עסקים</b> עבדו איתנו</span>
+        </div>
+        <div class="hero-trust">
+          <span class="dot"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> בוט שמדבר בדיוק כמוך</span>
+          <span class="dot"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> מתאימים את הבוט לעסק ולצרכים שלך</span>
+          <span class="dot"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> מענה מיידי 24/7</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="phone">
+          <img src="example.png" alt="שיחת וואטסאפ לדוגמה — הבוט עונה ללקוחה ומתאם לה שיעור ניסיון תוך שניות" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFER / URGENCY ============ -->
+<section class="offer">
+  <div class="container">
+    <div class="offer-card">
+      <div class="offer-left">
+        <span class="offer-badge">🔥 רק 10 מקומות — לזמן מוגבל</span>
+        <h2>חודש ניסיון <em>חינם לגמרי</em> — ל-10 העסקים הראשונים בלבד</h2>
+        <p>כבר עזרנו ל-<b>מעל 152 בעלי עסקים</b> להפסיק לאבד לקוחות — <b>ועכשיו תורכם.</b> חודש ניסיון חינם מלא, בלי התחייבות, בטלו בכל רגע. אבל רק <b>10 העסקים הראשונים</b> נכנסים, והמקומות נתפסים מהר. אל תהיו אלה שפספסו — תפסו מקום עכשיו!</p>
+        <a href="#" class="btn-primary wa-cta" data-msg="היי! אני רוצה לתפוס מקום במבצע ההשקה — חודש ניסיון חינם">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6 2 11c0 2.6 1.3 4.9 3.3 6.5L4 22l4.8-1.5c1 .3 2.1.5 3.2.5 5.5 0 10-4 10-9S17.5 2 12 2z"/></svg>
+          תפסו מקום עכשיו
+        </a>
+      </div>
+      <div class="offer-right">
+        <div class="spots">
+          <div class="lbl"><span>מקומות שנתפסו</span><b>6 / 10</b></div>
+          <div class="spots-bar"><i></i></div>
+          <div class="count">נותרו רק <span>4 מקומות</span> במבצע</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAND (social proof) ============ -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat"><div class="n">+152</div><div class="l">עסקים ישראלים סומכים עלינו</div></div>
+      <div class="stat"><div class="n">4.8 <span class="star">★</span></div><div class="l">דירוג לקוחות ממוצע</div></div>
+      <div class="stat"><div class="n">85%</div><div class="l">מהפניות נסגרות אוטומטית</div></div>
+      <div class="stat"><div class="n">24/7</div><div class="l">מענה תוך שניות, כל השנה</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUSTOMIZATION (moved up — first thing after social proof) ============ -->
+<section class="who">
+  <div class="container">
+    <span class="eyebrow">לא תבנית גנרית</span>
+    <h2 class="section-title" style="margin-bottom:16px">אנחנו בונים את הבוט <span style="color:var(--green)">במיוחד</span> לעסק שלך 🎯</h2>
+    <p class="who-text">שום בוט מהמדף. אנחנו לומדים את העסק שלך לעומק — את השירותים, המחירים, השאלות שחוזרות והטון שבו אתה מדבר עם הלקוחות — ובונים בוט שמרגיש בדיוק <b>כמוך</b>. אותה שפה, אותו סגנון, אותו חיוך — עד שהלקוחות בכלל לא מבחינים שמדובר ב-AI.<br><br>ואנחנו לא עוצרים שם. מתאימים את הבוט <b>בול לצרכים של העסק שלך</b> — חיבור ליומן, תיאום תורים אוטומטי, או כל יכולת אחרת שתצטרך. כל בעל עסק מקבל מאיתנו <b>ליווי ויחס אישי</b>, ואנחנו מכווננים יחד איתך עד שאתה מרוצה ב-100%.</p>
+  </div>
+</section>
+
+<!-- ============ PROBLEM / SOLUTION ============ -->
+<section class="pad">
+  <div class="container">
+    <span class="eyebrow" style="display:block;text-align:center">למה זה קריטי</span>
+    <h2 class="section-title">כל פנייה שלא נענתה = לקוח שהלך למתחרה</h2>
+    <p class="section-sub">87% מהלקוחות מצפים לתשובה תוך פחות מ-10 דקות. מי שעונה ראשון — מנצח.</p>
+    <div class="ps-grid">
+      <div class="ps-card bad">
+        <h3>😕 בלי Botly</h3>
+        <ul class="ps-list">
+          <li><span class="ic">✕</span> פניות שמגיעות בלילה ובסופ"ש נשארות ללא מענה עד הבוקר</li>
+          <li><span class="ic">✕</span> לקוח שלא קיבל תשובה תוך דקות — פונה למתחרה</li>
+          <li><span class="ic">✕</span> אתה עונה על אותן שאלות שוב ושוב, כל היום</li>
+          <li><span class="ic">✕</span> שעות עבודה יקרות מתבזבזות על תיאומים ושאלות בסיסיות</li>
+        </ul>
+      </div>
+      <div class="ps-card good">
+        <h3>✨ עם Botly</h3>
+        <ul class="ps-list">
+          <li><span class="ic">✓</span> מענה מיידי לכל פנייה, 24/7 — בדיוק כמו נציג אנושי אמיתי</li>
+          <li><span class="ic">✓</span> הלקוחות מרגישים שמדבר איתם אדם אמיתי — שירות חם שמשאיר אותם מרוצים</li>
+          <li><span class="ic">✓</span> מתאימים את הבוט בול לצרכים שלך — תיאום תורים, תזכורות, חיבור ליומן וכל יכולת אחרת שתצטרך</li>
+          <li><span class="ic">✓</span> אתה משוחרר מכאב הראש של שירות לקוחות — ומתעסק רק בעבודה שלך</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="pad bg-soft" id="how">
+  <div class="container">
+    <span class="eyebrow" style="display:block;text-align:center">פשוט להפליא</span>
+    <h2 class="section-title">איך זה עובד? 3 שלבים</h2>
+    <p class="section-sub">בלי קוד, בלי כאב ראש. אנחנו עושים את כל העבודה הטכנית בשבילך.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>מחברים לוואטסאפ</h3>
+        <p>אנחנו מחברים את Botly למספר הוואטסאפ העסקי שלך תוך 48 שעות. אתה לא צריך לשנות כלום.</p>
+      </div>
+      <div class="step"><span class="step-line"></span>
+        <div class="num">2</div>
+        <h3>מאמנים את הבוט</h3>
+        <p>מלמדים את הבוט על העסק שלך — שירותים, מחירים, שעות, שאלות נפוצות. הוא מדבר בדיוק בשפה שלך.</p>
+      </div>
+      <div class="step"><span class="step-line"></span>
+        <div class="num">3</div>
+        <h3>הבוט עונה לבד</h3>
+        <p>מהרגע הזה Botly עונה ללקוחות אוטומטית, 24/7, ומעביר אליך רק מה שדורש אותך באמת.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY ADVANTAGES ============ -->
+<section class="pad" id="advantages">
+  <div class="container">
+    <span class="eyebrow" style="display:block;text-align:center">למה דווקא אנחנו</span>
+    <h2 class="section-title">היתרונות שגורמים ללקוחות לסגור איתנו</h2>
+    <p class="section-sub">לא עוד בוט שמרגיש כמו רובוט. פתרון שמרגיש כמוך — בלי שום סיכון מצידך.</p>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="ai">🗣️</div>
+        <div>
+          <h3>הבוט מדבר בשפה שלך</h3>
+          <p>אותו טון, אותו סלנג, אותו חיוך. <b>הלקוחות לא ידעו בכלל ש-AI מדבר איתם</b> — הם בטוחים שמדובר בך. אז הם לא מתעצבנים, ולא בורחים.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="ai">🎯</div>
+        <div>
+          <h3>מותאם בדיוק לעסק שלך</h3>
+          <p>אנחנו מתאימים את הבוט <b>לעסק ולצרכים שלך</b> — לא תבנית גנרית. הוא מכיר את השירותים, המחירים והשאלות שחוזרות, ועונה בדיוק כמו שאתה היית עונה.</p>
+        </div>
+      </div>
+      <div class="adv-card">
+        <div class="ai">🚫</div>
+        <div>
+          <h3>אפס התחייבות</h3>
+          <p>חודש ניסיון חינם (רק ל-10 העסקים הראשונים). <b>אתם יכולים לבטל בכל רגע</b>, בלי קנסות ובלי שאלות.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="pad bg-soft" id="features">
+  <div class="container">
+    <span class="eyebrow" style="display:block;text-align:center">מה תקבל</span>
+    <h2 class="section-title">כל מה שעסק צריך כדי לא לפספס לקוח</h2>
+    <p class="section-sub">בוט AI אחד שמנהל את כל שירות הלקוחות — עונה, מסנן, מתאם ונסגר לבד, בלי לפספס אף הודעה.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>מענה מיידי 24/7</h3>
+        <p>הבוט עונה תוך שניות בכל שעה — לילה, סופ"ש וחג. לקוח אף פעם לא מחכה.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <h3>מדבר בדיוק כמו בעל העסק</h3>
+        <p>אותו טון, אותה שפה, אותו סגנון — הבוט מדבר בדיוק כמוך. הלקוחות מרגישים שמדברים איתך, לא עם בוט.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>לא מפספס אף פנייה</h3>
+        <p>כל הודעה נענית ונרשמת. אפס לידים אבודים, אפס לקוחות שמרגישים מוזנחים.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <h3>מתאימים את הבוט בול לצרכים שלך</h3>
+        <p>חיבור ליומן, קביעת תורים אוטומטית, שליחת תזכורות, מענה לשאלות נפוצות, סינון לידים ועוד — כל יכולת שהעסק שלך צריך, אנחנו מגדירים ומחברים בשבילך.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <h3>העברה חכמה לנציג</h3>
+        <p>כשפנייה דורשת אדם — הבוט מעביר אליך אותה מסודרת, עם כל הפרטים שכבר אסף.</p>
+      </div>
+      <div class="feature-card">
+        <div class="fic"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>אתה מתעסק רק בעבודה שלך</h3>
+        <p>הבוט לוקח את כל כאב הראש של שירות הלקוחות. אתה משוחרר להתמקד במה שאתה הכי טוב בו — ולהצמיח את העסק.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="pad" id="testimonials">
+  <div class="container">
+    <span class="eyebrow" style="display:block;text-align:center">לקוחות מספרים</span>
+    <h2 class="section-title">עסקים שכבר הפסיקו לפספס לקוחות</h2>
+    <p class="section-sub">תוצאות אמיתיות מעסקים ישראליים שעברו ל-Botly.</p>
+    <div class="tst-grid">
+      <div class="tst-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"תוך שבועיים Botly ענה ל-80% מהפניות לבד. הפסקתי לפספס לקוחות שכותבים אחרי שסגרנו את המוסך — וזה כסף שפשוט היה בורח לי."</p>
+        <div class="tst-author">
+          <span class="ava" style="background:linear-gradient(135deg,#25D366,#128C7E)">י</span>
+          <div><b>יוסי לוי</b><span>בעלים · מוסך לוי, פתח תקווה</span></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"הלקוחות מקבלות תשובה תוך שניות, גם ב-23:00. מאז שהתחלנו, מספר ההרשמות לשיעורים עלה ב-35%. פשוט לא מאמינה שחיכיתי כל כך הרבה."</p>
+        <div class="tst-author">
+          <span class="ava" style="background:linear-gradient(135deg,#7c4dff,#b388ff)">מ</span>
+          <div><b>מיכל ברק</b><span>מנהלת · סטודיו פילאטיס מיכל</span></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"החזר ההשקעה היה תוך פחות מחודש. הצוות שלי מתעסק היום רק בפניות שבאמת דורשות בן אדם, וכל השאר — הבוט סוגר. שירות וליווי מעולים."</p>
+        <div class="tst-author">
+          <span class="ava" style="background:linear-gradient(135deg,#ff8a3c,#ff5a3c)">ד</span>
+          <div><b>דניאל אזולאי</b><span>מנכ"ל · DA דיגיטל</span></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"הכי הפתיע אותי שלקוחות כתבו לי 'איזה כיף שעונים כל כך מהר ובחביבות'. הם בכלל לא קלטו שזה בוט. בשבילי זה שקט נפשי — אני בטיפול והעסק ממשיך לענות."</p>
+        <div class="tst-author">
+          <span class="ava" style="background:linear-gradient(135deg,#25D366,#075E54)">ש</span>
+          <div><b>שירה כהן</b><span>בעלים · קליניקת אסתטיקה, רמת גן</span></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"חששתי שזה יישמע מלאכותי — אבל הם התאימו את הבוט בדיוק לסגנון שלי. הוא עונה כמוני אחד לאחד. תוך חודש סגרתי יותר תורים מאי פעם, בלי לגעת בטלפון."</p>
+        <div class="tst-author">
+          <span class="ava" style="background:linear-gradient(135deg,#7c4dff,#5e35b1)">א</span>
+          <div><b>אבי מזרחי</b><span>בעלים · מספרת AVI, חולון</span></div>
+        </div>
+      </div>
+      <div class="tst-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"התחלתי מחודש הניסיון החינם בלי שום התחייבות, רק כדי לבדוק. אחרי שבוע כבר לא יכולתי בלי זה. עונה ללקוחות בלילה, בשבת, בחגים — ואני סוף סוף נח."</p>
+        <div class="tst-author">
+          <span class="ava" style="background:linear-gradient(135deg,#128C7E,#25D366)">ר</span>
+          <div><b>רונן ביטון</b><span>מנהל · חברת הובלות, אשדוד</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tst-hint">👈 החליקו לעוד ביקורות</div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="pad bg-soft" id="faq">
+  <div class="container">
+    <span class="eyebrow" style="display:block;text-align:center">שאלות נפוצות</span>
+    <h2 class="section-title">כל מה שרצית לדעת</h2>
+    <div class="faq-wrap" style="margin-top:40px">
+      <div class="faq-item">
+        <button class="faq-q">צריך ידע טכני כדי להתחיל? <span class="pm">+</span></button>
+        <div class="faq-a"><p>בכלל לא. אנחנו עושים את כל ההקמה והחיבור בשבילך תוך 48 שעות. אתה רק מספר לנו על העסק — ואנחנו דואגים לשאר.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">הלקוחות יבינו שהם מדברים עם בוט? <span class="pm">+</span></button>
+        <div class="faq-a"><p>לא. אנחנו מאמנים את הבוט לדבר בדיוק כמו בעל העסק — אותו טון, אותה שפה ואותו סגנון. הלקוחות מרגישים שמדברים עם נציג אמיתי, ובדיוק בגלל זה הם לא מתעצבנים ומקבלים שירות מצוין.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">מה קורה כשהבוט לא יודע לענות? <span class="pm">+</span></button>
+        <div class="faq-a"><p>הבוט מזהה פניות מורכבות ומעביר אותן אליך או לנציג — מסודרות, עם כל הפרטים שכבר אסף, כדי שתוכל לסגור מהר.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">זה עובד עם הוואטסאפ העסקי הקיים שלי? <span class="pm">+</span></button>
+        <div class="faq-a"><p>כן, אנחנו מתחברים למספר העסקי שלך. אין צורך להחליף מספר או להודיע ללקוחות על שום שינוי.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">מה כולל מבצע חודש הניסיון החינם? <span class="pm">+</span></button>
+        <div class="faq-a"><p>הקמה מלאה, חיבור לוואטסאפ ואימון הבוט — חודש שלם בחינם ובלי התחייבות. אפשר לבטל בכל רגע, בלי קנסות ובלי שאלות. המבצע מוגבל ל-10 העסקים הראשונים בלבד.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING CTA ============ -->
+<section class="closing-cta">
+  <div class="inner">
+    <span class="mini-badge">🔥 נותרו רק 4 מקומות במבצע</span>
+    <h2>מוכן להפסיק לפספס לקוחות?</h2>
+    <p>הצטרף ל-10 העסקים הראשונים וקבל חודש שלם של Botly — בחינם.</p>
+    <p style="margin-bottom:26px">בלי התחייבות — בטלו בכל רגע. רק עוד לקוחות.</p>
+    <a href="#" class="btn-primary wa-cta" data-msg="היי! אני רוצה לתפוס מקום במבצע — חודש ניסיון חינם של Botly">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6 2 11c0 2.6 1.3 4.9 3.3 6.5L4 22l4.8-1.5c1 .3 2.1.5 3.2.5 5.5 0 10-4 10-9S17.5 2 12 2z"/></svg>
+      תפסו את המקום שלכם בוואטסאפ
+    </a>
+    <p class="reassure">⏱️ מענה תוך דקות · התקנה תוך 48 שעות</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo"><span class="logo-word">Bot<b>ly</b></span></a>
+        <p>בוט שירות לקוחות חכם לוואטסאפ שמרגיש כמו נציג אנושי אמיתי. מנהל את כל הפניות 24/7 — כדי שתתפנה לעבודה שלך.</p>
+      </div>
+      <div>
+        <h4>ניווט</h4>
+        <a href="#how">איך זה עובד</a>
+        <a href="#advantages">יתרונות</a>
+        <a href="#testimonials">לקוחות</a>
+        <a href="#faq">שאלות נפוצות</a>
+      </div>
+      <div id="contact">
+        <h4>צרו קשר</h4>
+        <!-- TODO: החלף במספר הטלפון האמיתי שלך -->
+        <a href="#" class="wa-cta" data-msg="היי, אשמח לפרטים על Botly">טלפון: 052-561-3882</a>
+      </div>
+      <div>
+        <h4>מידע משפטי</h4>
+        <a href="terms.html">תנאי שימוש</a>
+        <a href="privacy.html">מדיניות פרטיות</a>
+        <a href="accessibility.html">הצהרת נגישות</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Botly · כל הזכויות שמורות</div>
+  </div>
+</footer>
+
+<!-- ============ Floating WhatsApp button ============ -->
+<a href="#" class="float-wa wa-cta" data-msg="היי, אשמח לשמוע על Botly" aria-label="דברו איתנו בוואטסאפ">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6 2 11c0 2.6 1.3 4.9 3.3 6.5L4 22l4.8-1.5c1 .3 2.1.5 3.2.5 5.5 0 10-4 10-9S17.5 2 12 2z"/></svg>
+  <span class="float-wa-label">דברו איתנו בוואטסאפ</span>
+</a>
+
+<!-- CDN: GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+/* =====================================================================
+   ⚠️ הגדרה אחת בלבד שצריך לשנות:
+   החלף את המספר במספר הוואטסאפ העסקי שלך.
+   פורמט בינלאומי, ספרות בלבד, ללא + וללא 0 בהתחלה.
+   דוגמה: מספר 050-123-4567  →  "972501234567"
+   ===================================================================== */
+const WA_PHONE = "972525613882"; // מספר הוואטסאפ העסקי
+
+/* בונה את כל קישורי הוואטסאפ בדף מתוך המשתנה למעלה */
+document.querySelectorAll(".wa-cta").forEach(el=>{
+  const msg = el.getAttribute("data-msg") || "היי, אשמח לפרטים על Botly";
+  el.setAttribute("href", `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(msg)}`);
+  el.setAttribute("target","_blank");
+  el.setAttribute("rel","noopener");
+});
+
+/* Sticky header shadow */
+const header = document.getElementById("header");
+const onScroll = ()=> header.classList.toggle("scrolled", window.scrollY > 10);
+onScroll(); window.addEventListener("scroll", onScroll, {passive:true});
+
+/* Reveal sticky chat button on phone only after scrolling past the hero CTA */
+const floatBtn = document.querySelector(".float-wa");
+const heroCta = document.querySelector(".hero-cta");
+if(floatBtn && heroCta && "IntersectionObserver" in window){
+  new IntersectionObserver(
+    (es)=>es.forEach(e=>floatBtn.classList.toggle("show", !e.isIntersecting)),
+    {threshold:0}
+  ).observe(heroCta);
+} else if(floatBtn){ floatBtn.classList.add("show"); }
+
+/* FAQ accordion */
+document.querySelectorAll(".faq-item").forEach(item=>{
+  const q = item.querySelector(".faq-q");
+  const a = item.querySelector(".faq-a");
+  q.addEventListener("click", ()=>{
+    const isOpen = item.classList.contains("open");
+    document.querySelectorAll(".faq-item").forEach(o=>{o.classList.remove("open");o.querySelector(".faq-a").style.maxHeight=null;});
+    if(!isOpen){ item.classList.add("open"); a.style.maxHeight = a.scrollHeight + "px"; }
+  });
+});
+
+/* ===== GSAP animations ===== */
+window.addEventListener("load", ()=>{
+  if(typeof gsap === "undefined") return;
+
+  /* Hero entrance — gsap.set() FIRST to prevent FOUC */
+  gsap.set([".hero .eyebrow",".hero h1",".hero .subtitle",".hero-cta",".hero-proof",".hero-trust",".phone"], {opacity:0, y:30});
+  const tl = gsap.timeline({defaults:{ease:"power3.out"}});
+  tl.to(".hero .eyebrow",{opacity:1,y:0,duration:.6})
+    .to(".hero h1",{opacity:1,y:0,duration:.8},"-=.3")
+    .to(".hero .subtitle",{opacity:1,y:0,duration:.6},"-=.5")
+    .to(".hero-cta",{opacity:1,y:0,duration:.5},"-=.3")
+    .to(".hero-proof",{opacity:1,y:0,duration:.5},"-=.3")
+    .to(".hero-trust",{opacity:1,y:0,duration:.5},"-=.35")
+    .to(".phone",{opacity:1,y:0,duration:.8},"-=.7");
+
+  /* Mouse parallax (desktop only) */
+  if(window.matchMedia("(min-width:901px)").matches){
+    const hero = document.querySelector(".hero");
+    hero.addEventListener("mousemove",(e)=>{
+      const x=(e.clientX/window.innerWidth-0.5)*2, y=(e.clientY/window.innerHeight-0.5)*2;
+      gsap.to(".hero-shapes-back",{x:x*40,y:y*22,duration:.8});
+      gsap.to(".hero-shapes-mid",{x:x*22,y:y*12,duration:.8});
+      gsap.to(".phone",{x:x*10,y:y*7,duration:.8});
+    });
+  }
+
+  /* ScrollTrigger reveals */
+  if(typeof ScrollTrigger !== "undefined"){
+    const reveal = (sel, opts={})=>{
+      gsap.utils.toArray(sel).forEach(el=>{
+        gsap.set(el,{opacity:0,y:50});
+        ScrollTrigger.create({trigger:el,start:"top 85%",onEnter:()=>gsap.to(el,{opacity:1,y:0,duration:.7,ease:"power2.out",...opts})});
+      });
+    };
+    gsap.set(".feature-card",{opacity:0,y:55,rotateX:18});
+    ScrollTrigger.batch(".feature-card",{start:"top 85%",onEnter:b=>gsap.to(b,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.1,ease:"power2.out"})});
+    gsap.set(".adv-card",{opacity:0,y:50});
+    ScrollTrigger.batch(".adv-card",{start:"top 85%",onEnter:b=>gsap.to(b,{opacity:1,y:0,duration:.7,stagger:.1,ease:"power2.out"})});
+    gsap.set(".step",{opacity:0,y:50});
+    ScrollTrigger.batch(".step",{start:"top 85%",onEnter:b=>gsap.to(b,{opacity:1,y:0,duration:.7,stagger:.12,ease:"power2.out"})});
+    gsap.set(".tst-card",{opacity:0,y:50});
+    ScrollTrigger.batch(".tst-card",{start:"top 85%",onEnter:b=>gsap.to(b,{opacity:1,y:0,duration:.7,stagger:.12,ease:"power2.out"})});
+    gsap.set(".stat",{opacity:0,y:26});
+    ScrollTrigger.batch(".stat",{start:"top 92%",onEnter:b=>gsap.to(b,{opacity:1,y:0,duration:.6,stagger:.09,ease:"power2.out"})});
+    reveal(".offer-card");
+    reveal(".ps-card",{});
+    reveal(".faq-item");
+    /* animate offer progress bar */
+    ScrollTrigger.create({trigger:".offer-card",start:"top 80%",onEnter:()=>{
+      gsap.fromTo(".spots-bar i",{width:"0%"},{width:"60%",duration:1.2,ease:"power2.out"});
+    }});
+  }
+});
+</script>
+</body>
+</html>
